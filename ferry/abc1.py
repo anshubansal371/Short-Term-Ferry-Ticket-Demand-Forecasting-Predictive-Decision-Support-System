@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
 import matplotlib.pyplot as plt
 import datetime
 import pickle
@@ -25,14 +26,17 @@ st.divider()
 # ══════════════════════════════════════════════════════
 @st.cache_resource
 def load_models():
-    with open('xgb_model.pkl','rb') as f: xgb = pickle.load(f)
-    with open('rf_model.pkl','rb') as f: rf = pickle.load(f)
-    with open('gb_model.pkl','rb') as f: gb = pickle.load(f)
-    with open('lr_model.pkl','rb') as f: lr = pickle.load(f)
-    with open('gb_low.pkl','rb') as f: gb_low = pickle.load(f)
-    with open('gb_high.pkl','rb') as f: gb_high = pickle.load(f)
-    with open('feat_cols.pkl','rb') as f: feat_cols= pickle.load(f)
-    with open('intervals.json','r')  as f: intervals= json.load(f)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    with open(os.path.join(base_dir, 'xgb_model.pkl'),  'rb') as f: xgb      = pickle.load(f)
+    with open(os.path.join(base_dir, 'rf_model.pkl'),   'rb') as f: rf       = pickle.load(f)
+    with open(os.path.join(base_dir, 'gb_model.pkl'),   'rb') as f: gb       = pickle.load(f)
+    with open(os.path.join(base_dir, 'lr_model.pkl'),   'rb') as f: lr       = pickle.load(f)
+    with open(os.path.join(base_dir, 'gb_low.pkl'),     'rb') as f: gb_low   = pickle.load(f)
+    with open(os.path.join(base_dir, 'gb_high.pkl'),    'rb') as f: gb_high  = pickle.load(f)
+    with open(os.path.join(base_dir, 'feat_cols.pkl'),  'rb') as f: feat_cols= pickle.load(f)
+    with open(os.path.join(base_dir, 'intervals.json'), 'r')  as f: intervals= json.load(f)
+
     return xgb, rf, gb, lr, gb_low, gb_high, feat_cols, intervals
 
 # ══════════════════════════════════════════════════════
@@ -40,7 +44,9 @@ def load_models():
 # ══════════════════════════════════════════════════════
 @st.cache_data
 def load_data():
-    df, train, test = run_pipeline('A:/ferry/Toronto Island Ferry Tickets.csv')
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(base_dir, 'A:/ferry/Toronto Island Ferry Tickets.csv')
+    df, train, test = run_pipeline(csv_path)
     return df, train, test
 
 def generate_future(df, future_date):
