@@ -4,7 +4,7 @@
 import pandas as pd
 import numpy as np
 
-def run_pipeline(csv_path='Toronto_Island_Ferry_Tickets.csv'):
+def run_pipeline(csv_path):
 
     # ── DAY 1: Load ──────────────────────────────────
     df = pd.read_csv(csv_path)
