@@ -45,7 +45,7 @@ def load_models():
 @st.cache_data
 def load_data():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(base_dir, 'A:/ferry/Toronto Island Ferry Tickets.csv')
+    csv_path = os.path.join(base_dir, 'Toronto Island Ferry Tickets.csv')
     df, train, test = run_pipeline(csv_path)
     return df, train, test
 
