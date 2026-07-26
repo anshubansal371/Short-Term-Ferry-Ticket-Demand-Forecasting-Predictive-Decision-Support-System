@@ -3,3 +3,7 @@ anthropic
 PyPDF2
 pandas
 numpy
+matplotlib
+scikit-learn
+xgboost
+scipy
